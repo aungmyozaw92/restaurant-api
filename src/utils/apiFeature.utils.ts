@@ -2,6 +2,7 @@ import { Location } from "../restaurants/schemas/restaurant.schema";
 import { v2 } from 'cloudinary';
 import toStream = require('buffer-to-stream');
 import { Readable } from "stream";
+import { JwtService } from "@nestjs/jwt";
 
 const nodeGeoCoder = require('node-geocoder');
 
@@ -52,6 +53,12 @@ export default class APIFeatures {
             //   Readable.from(files.buffer).pipe(upload); // covert buffer to readable stream and pass to upload
             toStream(file.buffer).pipe(upload);
         });
+  }
+
+  static async assignJwtToken(userId: string, jwtService: JwtService): Promise<string>{
+    const payload = { id: userId };
+    const token = await jwtService.sign(payload);
+    return token;
   }
    // Upload images
   // static async upload(files) {

@@ -6,6 +6,7 @@ import { memoryStorage } from 'multer';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RestaurantsModule } from './restaurants/restaurants.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { RestaurantsModule } from './restaurants/restaurants.module';
        isGlobal: true
     }),
     MongooseModule.forRoot(process.env.DB_URI),
-    RestaurantsModule
+    RestaurantsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
